@@ -1,6 +1,7 @@
 package main.java.chess;
 
 import main.java.NotMoveAllowedExecption;
+import main.java.NotPieceFoundException;
 import main.java.pieces.*;
 
 import java.util.ArrayList;
@@ -21,9 +22,9 @@ public class Chess {
     }
 
     private Chess() {
-        board = new Board();
         playerWhite = new Player(board, "white", getPiecesWhite());
         playerBlack = new Player(board, "black", getPiecesBlack());
+        board = new Board(playerWhite, playerBlack);
     }
 
 
@@ -64,20 +65,23 @@ public class Chess {
         return null;
     }
 
-    public Piece move(String color, String from, String to) throws NotMoveAllowedExecption {
-        Optional<Piece> piece;
+    public Piece move(String color, String from, String to) throws NotMoveAllowedExecption, NotPieceFoundException {
+        Optional<Piece> pieceFrom;
+        Optional<Piece> pieceTo;
 
         if (color.equals("white")) {
-            piece = playerWhite.getPiece(from);
+            pieceFrom = playerWhite.getPiece(from);
         } else {
-            piece = playerBlack.getPiece(from);
+            pieceFrom = playerBlack.getPiece(from);
         }
 
-        if (piece.isPresent()) {
-            piece.get().move(to);
+        if (pieceFrom.isPresent()) {
+            pieceFrom.get().move(to, board.getPiece(to));
+        } else {
+            throw new NotPieceFoundException();
         }
 
-        return piece.get();
+        return pieceFrom.get();
     }
 
     private List<Piece> getPiecesWhite() {

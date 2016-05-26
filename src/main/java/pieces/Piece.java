@@ -2,6 +2,8 @@ package main.java.pieces;
 
 import main.java.NotMoveAllowedExecption;
 
+import java.util.Optional;
+
 /**
  * Created by najorcruzcruz on 11/4/16.
  */
@@ -10,11 +12,25 @@ public abstract class Piece {
     private String color;
     private String position;
     private PieceType type;
+    private Boolean isRemoved;
 
     public Piece(String color, String position, PieceType type) {
         this.color = color;
         this.position = position;
         this.type = type;
+        isRemoved = false;
+    }
+
+    public boolean isNotRemoved() {
+        return !isRemoved;
+    }
+
+    public boolean isRemoved() {
+        return isRemoved;
+    }
+
+    public void remove() {
+        isRemoved = true;
     }
 
     public String getColor() {
@@ -41,7 +57,7 @@ public abstract class Piece {
         this.type = type;
     }
 
-    public abstract void move(String to) throws NotMoveAllowedExecption;
+    public abstract void move(String to, Optional<Piece> toPiece) throws NotMoveAllowedExecption;
 
     @Override
     public String toString() {

@@ -21,6 +21,7 @@ public class Player {
 
     public Optional<Piece> getPiece(String position) {
         return pieces.stream()
+                .filter(Piece::isNotRemoved)
                 .filter(piece -> piece.getPosition().equals(position))
                 .findFirst();
 

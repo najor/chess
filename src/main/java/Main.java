@@ -33,8 +33,8 @@ public class Main {
                     } else {
                         turn = "white";
                     }
-                } catch (NotMoveAllowedExecption notMoveAllowedExecption) {
-                    System.err.println("Move no allowed.");
+                } catch (ChessException ex) {
+                    System.err.println(ex.getMessage());
                 }
                 game.printBoard();
             }
