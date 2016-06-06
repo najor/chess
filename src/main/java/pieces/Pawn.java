@@ -2,10 +2,6 @@ package main.java.pieces;
 
 import main.java.NotMoveAllowedExecption;
 
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * Created by najorcruzcruz on 9/5/16.
  */
@@ -18,53 +14,36 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public void move(String to, Optional<Piece> toPiece) throws NotMoveAllowedExecption {
+    public void move(String to, Piece toPiece) throws NotMoveAllowedExecption {
         if (getType() == PieceType.PAWN) {
-            Pattern p = Pattern.compile("(\\w)(\\d)");
-            Matcher matcherDestiny = p.matcher(to);
-            if (!matcherDestiny.matches()) {
-                throw new NotMoveAllowedExecption("Destiny is not well constructed");
-            }
+            PieceMovements pieceMovements = new PieceMovements(getPosition(), to).invoke();
+            int columnTo = pieceMovements.getColumnTo();
+            int columnFrom = pieceMovements.getColumnFrom();
+            int rowTo = pieceMovements.getRowTo();
+            int rowFrom = pieceMovements.getRowFrom();
 
-            char xDest = matcherDestiny.group(1).charAt(0);
-            int numDest = Integer.parseInt(matcherDestiny.group(2));
-
-            if (!matcherDestiny.matches()) {
-                throw new NotMoveAllowedExecption();
-            }
-
-            matcherDestiny = p.matcher(getPosition());
-
-            if (!matcherDestiny.matches()) {
-                throw new NotMoveAllowedExecption();
-            }
-
-            char xFrom = matcherDestiny.group(1).charAt(0);
-            int numFrom = Integer.parseInt(matcherDestiny.group(2));
-
-            if (xDest == xFrom && toPiece.isPresent()) {
+            if (columnTo == columnFrom && toPiece != null) {
                 throw new NotMoveAllowedExecption("Square already occupied");
             }
 
-            if (this.getColor().equals("white") && numDest <= numFrom) {
+            if (this.getColor().equals("white") && rowTo <= rowFrom) {
                 throw new NotMoveAllowedExecption();
             }
 
-            if (this.getColor().equals("black") && numDest >= numFrom) {
+            if (this.getColor().equals("black") && rowTo >= rowFrom) {
                 throw new NotMoveAllowedExecption();
             }
 
-            int distance = Math.abs(numDest - numFrom);
-            int xDistance = Math.abs(Character.getNumericValue(xDest) - Character.getNumericValue(xFrom));
+            int distance = Math.abs(rowTo - rowFrom);
+            int xDistance = Math.abs(columnTo - columnFrom);
 
             if ((!firstMove && distance > 1) || (firstMove && distance > 2) || distance <= 0) {
                 throw new NotMoveAllowedExecption("Too much distance");
             }
 
-            if (xDest != xFrom && distance == 1 && xDistance == 1 && toPiece.isPresent()) {
-                toPiece.get().remove();
-                //throw new NotMoveAllowedExecption("Must be same column");
-            } else if (xDest != xFrom) {
+            if (columnTo != columnFrom && distance == 1 && xDistance == 1 && toPiece != null) {
+                toPiece.remove();
+            } else if (columnTo != columnFrom) {
                 throw new NotMoveAllowedExecption();
             }
         }

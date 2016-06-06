@@ -1,8 +1,7 @@
 package main.java.pieces;
 
+import com.sun.istack.internal.Nullable;
 import main.java.NotMoveAllowedExecption;
-
-import java.util.Optional;
 
 /**
  * Created by najorcruzcruz on 11/4/16.
@@ -57,7 +56,11 @@ public abstract class Piece {
         this.type = type;
     }
 
-    public abstract void move(String to, Optional<Piece> toPiece) throws NotMoveAllowedExecption;
+    public void move(String to) throws NotMoveAllowedExecption {
+        move(to, null);
+    }
+
+    public abstract void move(String to, @Nullable Piece toPiece) throws NotMoveAllowedExecption;
 
     @Override
     public String toString() {

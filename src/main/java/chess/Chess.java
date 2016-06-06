@@ -71,12 +71,18 @@ public class Chess {
 
         if (color.equals("white")) {
             pieceFrom = playerWhite.getPiece(from);
+            pieceTo = playerBlack.getPiece(to);
         } else {
             pieceFrom = playerBlack.getPiece(from);
+            pieceTo = playerWhite.getPiece(to);
         }
 
         if (pieceFrom.isPresent()) {
-            pieceFrom.get().move(to, board.getPiece(to));
+            if (pieceTo.isPresent()) {
+                pieceFrom.get().move(to, pieceTo.get());
+            } else {
+                pieceFrom.get().move(to);
+            }
         } else {
             throw new NotPieceFoundException();
         }
