@@ -1,6 +1,7 @@
 package main.java.pieces;
 
 import main.java.NotMoveAllowedExecption;
+import main.java.chess.Board;
 
 /**
  * Created by najorcruzcruz on 9/5/16.
@@ -9,13 +10,14 @@ public class Pawn extends Piece {
 
     private Boolean firstMove = true;
 
-    public Pawn(String color, String position) {
-        super(color, position, PieceType.PAWN);
+    public Pawn(String color, String position, Board board) {
+        super(color, position, PieceType.PAWN, board);
     }
 
     @Override
-    public void move(String to, Piece toPiece) throws NotMoveAllowedExecption {
+    public void makeMove(String to) throws NotMoveAllowedExecption {
         if (getType() == PieceType.PAWN) {
+            Piece toPiece = this.board.getPiece(to);
             PieceMovements pieceMovements = new PieceMovements(getPosition(), to).invoke();
             int columnTo = pieceMovements.getColumnTo();
             int columnFrom = pieceMovements.getColumnFrom();

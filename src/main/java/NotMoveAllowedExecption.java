@@ -6,7 +6,7 @@ package main.java;
 public class NotMoveAllowedExecption extends ChessException {
 
     public NotMoveAllowedExecption() {
-        super(" This move is not allowed.");
+        super(" This makeMove is not allowed.");
     }
 
     public NotMoveAllowedExecption(String message) {

@@ -1,18 +1,20 @@
 package main.java.pieces;
 
 import main.java.NotMoveAllowedExecption;
+import main.java.chess.Board;
 
 /**
  * Created by najorcruzcruz on 9/5/16.
  */
 public class Knight extends Piece {
-    public Knight(String color, String position) {
-        super(color, position, PieceType.KNIGHT);
+    public Knight(String color, String position, Board board) {
+        super(color, position, PieceType.KNIGHT, board);
     }
 
     @Override
-    public void move(String to, Piece toPiece) throws NotMoveAllowedExecption {
+    public void makeMove(String to) throws NotMoveAllowedExecption {
 
+        Piece toPiece = board.getPiece(to);
         PieceMovements pieceMovements = new PieceMovements(getPosition(), to).invoke();
         int columnTo = pieceMovements.getColumnTo();
         int columnFrom = pieceMovements.getColumnFrom();

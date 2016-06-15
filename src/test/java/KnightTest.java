@@ -43,15 +43,39 @@ public class KnightTest {
 
     @Test
     public void removeTest() throws NotPieceFoundException, NotMoveAllowedExecption {
-
         Chess game = Chess.createGame();
 
         game.move("white", "B1", "C3");
         Piece pieceBlack = game.move("black", "B7", "B5");
-        Piece piece = game.move("white", "C3", "B5");
+        game.move("white", "C3", "B5");
 
         Assert.assertTrue(pieceBlack.isRemoved());
+    }
 
+    @Test(expected = NotMoveAllowedExecption.class)
+    public void badMoveToSameColorPieceTest() throws NotPieceFoundException, NotMoveAllowedExecption {
+        Chess game = Chess.createGame();
+
+        game.move("white", "B1", "D2");
+    }
+
+    @Test(expected = NotMoveAllowedExecption.class)
+    public void moveToWhitePosition() throws NotPieceFoundException, NotMoveAllowedExecption {
+        Chess game = Chess.createGame();
+
+        game.move("white", "B1", "C3");
+        game.move("black", "B7", "B5");
+
+        game.move("white", "C3", "B5");
+        game.move("black", "A7", "A5");
+
+        game.move("white", "B5", "D4");
+        game.move("black", "E7", "E5");
+
+        game.move("white", "G1", "F3");
+        game.move("black", "H7", "H5");
+
+        game.move("white", "F3", "D4");
 
     }
 }

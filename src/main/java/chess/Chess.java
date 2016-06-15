@@ -22,9 +22,11 @@ public class Chess {
     }
 
     private Chess() {
+        board = new Board();
         playerWhite = new Player(board, "white", getPiecesWhite());
         playerBlack = new Player(board, "black", getPiecesBlack());
-        board = new Board(playerWhite, playerBlack);
+        board.setPlayerBlack(playerBlack);
+        board.setPlayerWhite(playerWhite);
     }
 
 
@@ -67,22 +69,15 @@ public class Chess {
 
     public Piece move(String color, String from, String to) throws NotMoveAllowedExecption, NotPieceFoundException {
         Optional<Piece> pieceFrom;
-        Optional<Piece> pieceTo;
 
         if (color.equals("white")) {
             pieceFrom = playerWhite.getPiece(from);
-            pieceTo = playerBlack.getPiece(to);
         } else {
             pieceFrom = playerBlack.getPiece(from);
-            pieceTo = playerWhite.getPiece(to);
         }
 
         if (pieceFrom.isPresent()) {
-            if (pieceTo.isPresent()) {
-                pieceFrom.get().move(to, pieceTo.get());
-            } else {
-                pieceFrom.get().move(to);
-            }
+            pieceFrom.get().move(to);
         } else {
             throw new NotPieceFoundException();
         }
@@ -95,23 +90,23 @@ public class Chess {
 
         String color = "white";
 
-        pieces.add(new Rook(color, "A1"));
-        pieces.add(new Knight(color, "B1"));
-        pieces.add(new Bishop(color, "C1"));
-        pieces.add(new Queen(color, "D1"));
-        pieces.add(new King(color, "E1"));
-        pieces.add(new Bishop(color, "F1"));
-        pieces.add(new Knight(color, "G1"));
-        pieces.add(new Rook(color, "H1"));
+        pieces.add(new Rook(color, "A1", board));
+        pieces.add(new Knight(color, "B1", board));
+        pieces.add(new Bishop(color, "C1", board));
+        pieces.add(new Queen(color, "D1", board));
+        pieces.add(new King(color, "E1", board));
+        pieces.add(new Bishop(color, "F1", board));
+        pieces.add(new Knight(color, "G1", board));
+        pieces.add(new Rook(color, "H1", board));
 
-        pieces.add(new Pawn(color, "A2"));
-        pieces.add(new Pawn(color, "B2"));
-        pieces.add(new Pawn(color, "C2"));
-        pieces.add(new Pawn(color, "D2"));
-        pieces.add(new Pawn(color, "E2"));
-        pieces.add(new Pawn(color, "F2"));
-        pieces.add(new Pawn(color, "G2"));
-        pieces.add(new Pawn(color, "H2"));
+        pieces.add(new Pawn(color, "A2", board));
+        pieces.add(new Pawn(color, "B2", board));
+        pieces.add(new Pawn(color, "C2", board));
+        pieces.add(new Pawn(color, "D2", board));
+        pieces.add(new Pawn(color, "E2", board));
+        pieces.add(new Pawn(color, "F2", board));
+        pieces.add(new Pawn(color, "G2", board));
+        pieces.add(new Pawn(color, "H2", board));
 
         return pieces;
     }
@@ -121,23 +116,23 @@ public class Chess {
 
         String color = "black";
 
-        pieces.add(new Rook(color, "A8"));
-        pieces.add(new Knight(color, "B8"));
-        pieces.add(new Bishop(color, "C8"));
-        pieces.add(new Queen(color, "D8"));
-        pieces.add(new King(color, "E8"));
-        pieces.add(new Bishop(color, "F8"));
-        pieces.add(new Knight(color, "G8"));
-        pieces.add(new Rook(color, "H8"));
+        pieces.add(new Rook(color, "A8", board));
+        pieces.add(new Knight(color, "B8", board));
+        pieces.add(new Bishop(color, "C8", board));
+        pieces.add(new Queen(color, "D8", board));
+        pieces.add(new King(color, "E8", board));
+        pieces.add(new Bishop(color, "F8", board));
+        pieces.add(new Knight(color, "G8", board));
+        pieces.add(new Rook(color, "H8", board));
 
-        pieces.add(new Pawn(color, "A7"));
-        pieces.add(new Pawn(color, "B7"));
-        pieces.add(new Pawn(color, "C7"));
-        pieces.add(new Pawn(color, "D7"));
-        pieces.add(new Pawn(color, "E7"));
-        pieces.add(new Pawn(color, "F7"));
-        pieces.add(new Pawn(color, "G7"));
-        pieces.add(new Pawn(color, "H7"));
+        pieces.add(new Pawn(color, "A7", board));
+        pieces.add(new Pawn(color, "B7", board));
+        pieces.add(new Pawn(color, "C7", board));
+        pieces.add(new Pawn(color, "D7", board));
+        pieces.add(new Pawn(color, "E7", board));
+        pieces.add(new Pawn(color, "F7", board));
+        pieces.add(new Pawn(color, "G7", board));
+        pieces.add(new Pawn(color, "H7", board));
 
         return pieces;
     }

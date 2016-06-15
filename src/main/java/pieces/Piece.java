@@ -2,21 +2,24 @@ package main.java.pieces;
 
 import com.sun.istack.internal.Nullable;
 import main.java.NotMoveAllowedExecption;
+import main.java.chess.Board;
 
 /**
  * Created by najorcruzcruz on 11/4/16.
  */
 public abstract class Piece {
 
+    protected final Board board;
     private String color;
     private String position;
     private PieceType type;
     private Boolean isRemoved;
 
-    public Piece(String color, String position, PieceType type) {
+    public Piece(String color, String position, PieceType type, Board board) {
         this.color = color;
         this.position = position;
         this.type = type;
+        this.board = board;
         isRemoved = false;
     }
 
@@ -57,10 +60,17 @@ public abstract class Piece {
     }
 
     public void move(String to) throws NotMoveAllowedExecption {
-        move(to, null);
+        if (isPieceSameColor(board.getPiece(to))) {
+            throw new NotMoveAllowedExecption("Move to an occupied square. (SAME COLOUR AS YOUR)");
+        }
+        makeMove(to);
     }
 
-    public abstract void move(String to, @Nullable Piece toPiece) throws NotMoveAllowedExecption;
+    private boolean isPieceSameColor(@Nullable Piece toPiece) {
+        return toPiece != null && this.getColor().equals(toPiece.getColor());
+    }
+
+    protected abstract void makeMove(String to) throws NotMoveAllowedExecption;
 
     @Override
     public String toString() {

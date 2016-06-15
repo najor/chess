@@ -45,7 +45,7 @@ public class PieceMovements {
             throw new NotMoveAllowedExecption("Destiny is not well constructed");
         }
 
-        columnTo = Character.getNumericValue(matcherPosition.group(1).charAt(0));
+        columnTo = (int)(matcherPosition.group(1).charAt(0));
         rowTo = Integer.parseInt(matcherPosition.group(2));
 
         if (!matcherPosition.matches()) {
@@ -58,7 +58,7 @@ public class PieceMovements {
             throw new NotMoveAllowedExecption();
         }
 
-        columnFrom = Character.getNumericValue(matcherPosition.group(1).charAt(0));
+        columnFrom = (int)(matcherPosition.group(1).charAt(0));
         rowFrom = Integer.parseInt(matcherPosition.group(2));
 
         return this;
