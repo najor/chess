@@ -23,14 +23,11 @@ public class Rook extends Piece {
 
         if (columnFrom == columnTo) {
             checkCorrectMove(columnFrom, rowTo, rowFrom, (fixed, move) -> ((char)fixed.intValue()) + "" + move);
-
         } else if (rowFrom == rowTo) {
             checkCorrectMove(rowFrom, columnFrom, columnTo, (fixed, move) -> ((char)move.intValue()) + "" + fixed);
         } else {
             throw new NotMoveAllowedExecption();
         }
-
-        setPosition(to);
     }
 
     private void checkCorrectMove(int fixed, int to, int from, BiFunction<Integer, Integer, String> moveFn) throws NotMoveAllowedExecption {

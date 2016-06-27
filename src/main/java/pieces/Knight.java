@@ -31,7 +31,5 @@ public class Knight extends Piece {
         if (toPiece != null) {
             toPiece.remove();
         }
-
-        setPosition(to);
     }
 }

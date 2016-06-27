@@ -64,6 +64,7 @@ public abstract class Piece {
             throw new NotMoveAllowedExecption("Move to an occupied square. (SAME COLOUR AS YOUR)");
         }
         makeMove(to);
+        setPosition(to);
     }
 
     private boolean isPieceSameColor(@Nullable Piece toPiece) {

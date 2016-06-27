@@ -36,14 +36,14 @@ public class Pawn extends Piece {
                 throw new NotMoveAllowedExecption();
             }
 
-            int distance = Math.abs(rowTo - rowFrom);
-            int xDistance = Math.abs(columnTo - columnFrom);
+            int rowDistance = Math.abs(rowTo - rowFrom);
+            int columnDistance = Math.abs(columnTo - columnFrom);
 
-            if ((!firstMove && distance > 1) || (firstMove && distance > 2) || distance <= 0) {
+            if ((!firstMove && rowDistance > 1) || (firstMove && rowDistance > 2) || rowDistance <= 0) {
                 throw new NotMoveAllowedExecption("Too much distance");
             }
 
-            if (columnTo != columnFrom && distance == 1 && xDistance == 1 && toPiece != null) {
+            if (columnTo != columnFrom && rowDistance == 1 && columnDistance == 1 && toPiece != null) {
                 toPiece.remove();
             } else if (columnTo != columnFrom) {
                 throw new NotMoveAllowedExecption();
@@ -51,6 +51,5 @@ public class Pawn extends Piece {
         }
 
         firstMove = false;
-        setPosition(to);
     }
 }
