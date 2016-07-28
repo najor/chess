@@ -14,6 +14,19 @@ public class Bishop extends Piece {
 
     @Override
     public void makeMove(String to) throws NotMoveAllowedExecption {
+        PieceMovements pieceMovements = new PieceMovements(getPosition(), to).invoke();
 
+        if (!isDiagonalMove(pieceMovements)) {
+            throw new NotMoveAllowedExecption("Only Diagonal moves are allowed");
+        }
+
+        checkCorrectMove(pieceMovements, (col, row, step) -> ((char)(col + step)) + "" + (row + step));
+    }
+
+    private boolean isDiagonalMove(PieceMovements pieceMovements) {
+        int diffColumn = Math.abs(pieceMovements.getColumnFrom() - pieceMovements.getColumnTo());
+        int diffRow = Math.abs(pieceMovements.getRowFrom() - pieceMovements.getRowTo());
+
+        return diffColumn == diffRow && diffColumn != 0;
     }
 }

@@ -3,6 +3,7 @@ package main.java.pieces;
 import com.sun.istack.internal.Nullable;
 import main.java.NotMoveAllowedExecption;
 import main.java.chess.Board;
+import main.java.utils.TriFunction;
 
 /**
  * Created by najorcruzcruz on 11/4/16.
@@ -21,6 +22,42 @@ public abstract class Piece {
         this.type = type;
         this.board = board;
         isRemoved = false;
+    }
+
+    public void checkCorrectMove(PieceMovements pieceMovements, TriFunction<Integer, Integer, Integer, String> moveFn) throws NotMoveAllowedExecption {
+        int startCol = pieceMovements.getColumnTo();
+        int endCol = pieceMovements.getColumnFrom();
+        int endRow = pieceMovements.getRowTo();
+        int startRow = pieceMovements.getRowFrom();
+
+        if (startRow > endRow) {
+            int aux = startRow;
+            startRow = endRow;
+            endRow = aux;
+        }
+
+        if (startCol > endCol) {
+            int aux = startCol;
+            startCol = endCol;
+            endCol = aux;
+        }
+
+        int start = startRow;
+        int end = endRow;
+
+        if (startRow == endRow) {
+            start = startCol;
+            end = endCol;
+        }
+
+        int step = 1;
+        while ((start + step) < end) {
+            String move = moveFn.apply(startCol, startRow, step);
+            if (board.getPiece(move) != null) {
+                throw new NotMoveAllowedExecption("There is a piece in the middle");
+            }
+            step++;
+        }
     }
 
     public boolean isNotRemoved() {
@@ -61,10 +98,19 @@ public abstract class Piece {
 
     public void move(String to) throws NotMoveAllowedExecption {
         if (isPieceSameColor(board.getPiece(to))) {
-            throw new NotMoveAllowedExecption("Move to an occupied square. (SAME COLOUR AS YOUR)");
+            throw new NotMoveAllowedExecption("Move to an occupied square. (SAME COLOUR AS YOURS)");
         }
+
         makeMove(to);
+        removePiece(to);
         setPosition(to);
+    }
+
+    private void removePiece(String to) {
+        Piece toPiece = board.getPiece(to);
+        if (toPiece != null) {
+            toPiece.remove();
+        }
     }
 
     private boolean isPieceSameColor(@Nullable Piece toPiece) {

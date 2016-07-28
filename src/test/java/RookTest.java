@@ -27,7 +27,6 @@ public class RookTest {
         Assert.assertEquals(rook.getPosition(), "A5");
         Assert.assertEquals(rook.getType(), PieceType.ROOK);
 
-
         game.move("white", "A5", "A3");
         game.move("black", "G7", "G6");
         game.move("white", "A3", "H3");

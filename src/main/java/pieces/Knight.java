@@ -14,7 +14,6 @@ public class Knight extends Piece {
     @Override
     public void makeMove(String to) throws NotMoveAllowedExecption {
 
-        Piece toPiece = board.getPiece(to);
         PieceMovements pieceMovements = new PieceMovements(getPosition(), to).invoke();
         int columnTo = pieceMovements.getColumnTo();
         int columnFrom = pieceMovements.getColumnFrom();
@@ -26,10 +25,6 @@ public class Knight extends Piece {
 
         if (diffColumn > 2 || diffFrom > 2) {
             throw new NotMoveAllowedExecption();
-        }
-
-        if (toPiece != null) {
-            toPiece.remove();
         }
     }
 }
