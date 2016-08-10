@@ -13,6 +13,18 @@ public class Queen extends Piece {
 
     @Override
     public void makeMove(String to) throws NotMoveAllowedExecption {
+        PieceMovements pieceMovements = new PieceMovements(getPosition(), to).invoke();
+        int columnTo = pieceMovements.getColumnTo();
+        int columnFrom = pieceMovements.getColumnFrom();
+        int rowTo = pieceMovements.getRowTo();
+        int rowFrom = pieceMovements.getRowFrom();
 
+        if (columnFrom == columnTo) {
+            checkCorrectMove(pieceMovements, (col, row, step) -> ((char)col.intValue()) + "" + (row + step));
+        } else if (rowFrom == rowTo) {
+            checkCorrectMove(pieceMovements, (col, row, step) -> ((char)(col + step)) + "" + row);
+        } else {
+            checkCorrectMove(pieceMovements, (col, row, step) -> ((char) (col + step)) + "" + (row + step));
+        }
     }
 }
