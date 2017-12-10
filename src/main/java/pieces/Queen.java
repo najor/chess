@@ -1,6 +1,6 @@
 package main.java.pieces;
 
-import main.java.NotMoveAllowedExecption;
+import main.java.exception.NotMoveAllowedException;
 import main.java.chess.Board;
 
 /**
@@ -12,7 +12,7 @@ public class Queen extends Piece {
     }
 
     @Override
-    public void makeMove(String to) throws NotMoveAllowedExecption {
+    public void makeMove(String to) throws NotMoveAllowedException {
         PieceMovements pieceMovements = new PieceMovements(getPosition(), to).invoke();
         int columnTo = pieceMovements.getColumnTo();
         int columnFrom = pieceMovements.getColumnFrom();

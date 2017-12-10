@@ -1,12 +1,13 @@
-package test.java;
+package test.java.chess;
 
 
-import main.java.NotMoveAllowedExecption;
-import main.java.NotPieceFoundException;
-import main.java.chess.Chess;
-import main.java.chess.Player;
 import org.junit.Assert;
 import org.junit.Test;
+
+import main.java.chess.Chess;
+import main.java.chess.Player;
+import main.java.exception.NotMoveAllowedException;
+import main.java.exception.NotPieceFoundException;
 
 /**
  * Created by najorcruzcruz on 11/4/16.
@@ -25,9 +26,15 @@ public class ChessTest {
 
     }
 
-    @Test(expected = NotMoveAllowedExecption.class)
-    public void moveSamePositionTest() throws NotPieceFoundException, NotMoveAllowedExecption {
+    @Test(expected = NotMoveAllowedException.class)
+    public void moveSamePositionTest() throws NotPieceFoundException, NotMoveAllowedException {
         Chess game = Chess.createGame();
         game.move("white", "E2", "E2");
+    }
+
+    @Test
+    public void moveCaseInsensitive() throws NotPieceFoundException, NotMoveAllowedException {
+        Chess game = Chess.createGame();
+        game.move("white", "e2", "e3");
     }
 }

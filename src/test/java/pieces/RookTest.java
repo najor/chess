@@ -1,12 +1,13 @@
-package test.java;
+package test.java.pieces;
 
-import main.java.NotMoveAllowedExecption;
-import main.java.NotPieceFoundException;
-import main.java.chess.Chess;
-import main.java.pieces.Piece;
-import main.java.pieces.PieceType;
 import org.junit.Assert;
 import org.junit.Test;
+
+import main.java.chess.Chess;
+import main.java.exception.NotMoveAllowedException;
+import main.java.exception.NotPieceFoundException;
+import main.java.pieces.Piece;
+import main.java.pieces.PieceType;
 
 /**
  * Created by najorcruzcruz on 8/6/16.
@@ -14,7 +15,7 @@ import org.junit.Test;
 public class RookTest {
 
     @Test
-    public void moveTest() throws NotPieceFoundException, NotMoveAllowedExecption {
+    public void moveTest() throws NotPieceFoundException, NotMoveAllowedException {
         Chess game = Chess.createGame();
 
         game.move("white", "A2", "A4");
@@ -32,20 +33,20 @@ public class RookTest {
         game.move("white", "A3", "H3");
     }
 
-    @Test(expected = NotMoveAllowedExecption.class)
-    public void diagonalMoveTest() throws NotPieceFoundException, NotMoveAllowedExecption {
+    @Test(expected = NotMoveAllowedException.class)
+    public void diagonalMoveTest() throws NotPieceFoundException, NotMoveAllowedException {
         Chess game = Chess.createGame();
         game.move("white", "A1", "B5");
     }
 
-    @Test(expected = NotMoveAllowedExecption.class)
-    public void pieceInMiddleOfTrajectoryRowTest() throws NotPieceFoundException, NotMoveAllowedExecption {
+    @Test(expected = NotMoveAllowedException.class)
+    public void pieceInMiddleOfTrajectoryRowTest() throws NotPieceFoundException, NotMoveAllowedException {
         Chess game = Chess.createGame();
         game.move("white", "A1", "A5");
     }
 
-    @Test(expected = NotMoveAllowedExecption.class)
-    public void pieceInMiddleOfTrajectoryColumnTest() throws NotPieceFoundException, NotMoveAllowedExecption {
+    @Test(expected = NotMoveAllowedException.class)
+    public void pieceInMiddleOfTrajectoryColumnTest() throws NotPieceFoundException, NotMoveAllowedException {
         Chess game = Chess.createGame();
 
         game.move("white", "A2", "A4");

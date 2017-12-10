@@ -1,6 +1,6 @@
 package main.java.pieces;
 
-import main.java.NotMoveAllowedExecption;
+import main.java.exception.NotMoveAllowedException;
 import main.java.chess.Board;
 
 /**
@@ -15,7 +15,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public void makeMove(String to) throws NotMoveAllowedExecption {
+    public void makeMove(String to) throws NotMoveAllowedException {
         if (getType() == PieceType.PAWN) {
             Piece toPiece = this.board.getPiece(to);
             PieceMovements pieceMovements = new PieceMovements(getPosition(), to).invoke();
@@ -25,28 +25,28 @@ public class Pawn extends Piece {
             int rowFrom = pieceMovements.getRowFrom();
 
             if (columnTo == columnFrom && toPiece != null) {
-                throw new NotMoveAllowedExecption("Square already occupied");
+                throw new NotMoveAllowedException("Square already occupied");
             }
 
             if (this.getColor().equals("white") && rowTo <= rowFrom) {
-                throw new NotMoveAllowedExecption();
+                throw new NotMoveAllowedException();
             }
 
             if (this.getColor().equals("black") && rowTo >= rowFrom) {
-                throw new NotMoveAllowedExecption();
+                throw new NotMoveAllowedException();
             }
 
             int rowDistance = Math.abs(rowTo - rowFrom);
             int columnDistance = Math.abs(columnTo - columnFrom);
 
             if ((!firstMove && rowDistance > 1) || (firstMove && rowDistance > 2) || rowDistance <= 0) {
-                throw new NotMoveAllowedExecption("Too much distance");
+                throw new NotMoveAllowedException("Too much distance");
             }
 
             if (columnTo != columnFrom && rowDistance == 1 && columnDistance == 1 && toPiece != null) {
                 toPiece.remove();
             } else if (columnTo != columnFrom) {
-                throw new NotMoveAllowedExecption();
+                throw new NotMoveAllowedException();
             }
         }
 

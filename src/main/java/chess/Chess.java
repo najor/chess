@@ -1,12 +1,18 @@
 package main.java.chess;
 
-import main.java.NotMoveAllowedExecption;
-import main.java.NotPieceFoundException;
-import main.java.pieces.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import main.java.exception.NotMoveAllowedException;
+import main.java.exception.NotPieceFoundException;
+import main.java.pieces.Bishop;
+import main.java.pieces.King;
+import main.java.pieces.Knight;
+import main.java.pieces.Pawn;
+import main.java.pieces.Piece;
+import main.java.pieces.Queen;
+import main.java.pieces.Rook;
 
 /**
  * Created by najorcruzcruz on 11/4/16.
@@ -23,8 +29,8 @@ public class Chess {
 
     private Chess() {
         board = new Board();
-        playerWhite = new Player(board, "white", getPiecesWhite());
-        playerBlack = new Player(board, "black", getPiecesBlack());
+        playerWhite = new Player(getPiecesWhite());
+        playerBlack = new Player(getPiecesBlack());
         board.setPlayerBlack(playerBlack);
         board.setPlayerWhite(playerWhite);
     }
@@ -67,7 +73,7 @@ public class Chess {
         return null;
     }
 
-    public Piece move(String color, String from, String to) throws NotMoveAllowedExecption, NotPieceFoundException {
+    public Piece move(String color, String from, String to) throws NotMoveAllowedException, NotPieceFoundException {
         Optional<Piece> pieceFrom;
 
         if (color.equals("white")) {

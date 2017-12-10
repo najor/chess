@@ -1,11 +1,12 @@
-package test.java;
+package test.java.pieces;
 
-import main.java.NotMoveAllowedExecption;
-import main.java.NotPieceFoundException;
-import main.java.chess.Chess;
-import main.java.pieces.Piece;
 import org.junit.Assert;
 import org.junit.Test;
+
+import main.java.chess.Chess;
+import main.java.exception.NotMoveAllowedException;
+import main.java.exception.NotPieceFoundException;
+import main.java.pieces.Piece;
 
 /**
  * Created by najorcruzcruz on 28/7/16.
@@ -13,7 +14,7 @@ import org.junit.Test;
 public class BishopTest {
 
     @Test
-    public void moveTest() throws NotPieceFoundException, NotMoveAllowedExecption {
+    public void moveTest() throws NotPieceFoundException, NotMoveAllowedException {
         Chess game = Chess.createGame();
 
         game.move("white", "D2", "D4");
@@ -24,8 +25,8 @@ public class BishopTest {
         Assert.assertEquals(bishop.getPosition(), "G5");
     }
 
-    @Test(expected = NotMoveAllowedExecption.class)
-    public void wrongMove() throws NotPieceFoundException, NotMoveAllowedExecption {
+    @Test(expected = NotMoveAllowedException.class)
+    public void wrongMove() throws NotPieceFoundException, NotMoveAllowedException {
         Chess game = Chess.createGame();
 
         game.move("white", "D2", "D4");
@@ -33,15 +34,15 @@ public class BishopTest {
         game.move("white", "C1", "C3");
     }
 
-    @Test(expected = NotMoveAllowedExecption.class)
-    public void pieceInTheMiddleRightTopTest() throws NotPieceFoundException, NotMoveAllowedExecption {
+    @Test(expected = NotMoveAllowedException.class)
+    public void pieceInTheMiddleRightTopTest() throws NotPieceFoundException, NotMoveAllowedException {
         Chess game = Chess.createGame();
 
         game.move("white", "C1", "G5");
     }
 
-    @Test(expected = NotMoveAllowedExecption.class)
-    public void pieceInTheMiddleRightDownTest() throws NotPieceFoundException, NotMoveAllowedExecption {
+    @Test(expected = NotMoveAllowedException.class)
+    public void pieceInTheMiddleRightDownTest() throws NotPieceFoundException, NotMoveAllowedException {
         Chess game = Chess.createGame();
 
         game.move("white", "D2", "D4");
@@ -51,8 +52,8 @@ public class BishopTest {
         game.move("white", "E3", "G1");
     }
 
-    @Test(expected = NotMoveAllowedExecption.class)
-    public void pieceInTheMiddleLeftDownTest() throws NotPieceFoundException, NotMoveAllowedExecption {
+    @Test(expected = NotMoveAllowedException.class)
+    public void pieceInTheMiddleLeftDownTest() throws NotPieceFoundException, NotMoveAllowedException {
         Chess game = Chess.createGame();
 
         game.move("white", "D2", "D4");
@@ -62,8 +63,8 @@ public class BishopTest {
         game.move("white", "H6", "C1");
     }
 
-    @Test(expected = NotMoveAllowedExecption.class)
-    public void pieceInTheMiddleLeftTopTest() throws NotPieceFoundException, NotMoveAllowedExecption {
+    @Test(expected = NotMoveAllowedException.class)
+    public void pieceInTheMiddleLeftTopTest() throws NotPieceFoundException, NotMoveAllowedException {
         Chess game = Chess.createGame();
 
         game.move("white", "D2", "D4");
@@ -74,7 +75,7 @@ public class BishopTest {
     }
 
     @Test
-    public void attackPawnTest() throws NotPieceFoundException, NotMoveAllowedExecption {
+    public void attackPawnTest() throws NotPieceFoundException, NotMoveAllowedException {
         Chess game = Chess.createGame();
 
         game.move("white", "D2", "D4");

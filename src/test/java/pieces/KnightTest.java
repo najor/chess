@@ -1,9 +1,9 @@
-package test.java;
+package test.java.pieces;
 
 
-import main.java.ChessException;
-import main.java.NotMoveAllowedExecption;
-import main.java.NotPieceFoundException;
+import main.java.exception.ChessException;
+import main.java.exception.NotMoveAllowedException;
+import main.java.exception.NotPieceFoundException;
 import main.java.chess.Chess;
 import main.java.pieces.Piece;
 import org.junit.Assert;
@@ -15,7 +15,7 @@ import org.junit.Test;
 public class KnightTest {
 
     @Test
-    public void moveTest() throws NotPieceFoundException, NotMoveAllowedExecption {
+    public void moveTest() throws NotPieceFoundException, NotMoveAllowedException {
         Chess game = Chess.createGame();
 
         Piece piece = game.move("white", "B1", "C3");
@@ -34,7 +34,7 @@ public class KnightTest {
         Assert.assertEquals("white", piece.getColor());
     }
 
-    @Test(expected = NotMoveAllowedExecption.class)
+    @Test(expected = NotMoveAllowedException.class)
     public void moveFalseTest() throws ChessException {
         Chess game = Chess.createGame();
 
@@ -42,7 +42,7 @@ public class KnightTest {
     }
 
     @Test
-    public void removeTest() throws NotPieceFoundException, NotMoveAllowedExecption {
+    public void removeTest() throws NotPieceFoundException, NotMoveAllowedException {
         Chess game = Chess.createGame();
 
         game.move("white", "B1", "C3");
@@ -52,15 +52,15 @@ public class KnightTest {
         Assert.assertTrue(pieceBlack.isRemoved());
     }
 
-    @Test(expected = NotMoveAllowedExecption.class)
-    public void badMoveToSameColorPieceTest() throws NotPieceFoundException, NotMoveAllowedExecption {
+    @Test(expected = NotMoveAllowedException.class)
+    public void badMoveToSameColorPieceTest() throws NotPieceFoundException, NotMoveAllowedException {
         Chess game = Chess.createGame();
 
         game.move("white", "B1", "D2");
     }
 
-    @Test(expected = NotMoveAllowedExecption.class)
-    public void moveToWhitePosition() throws NotPieceFoundException, NotMoveAllowedExecption {
+    @Test(expected = NotMoveAllowedException.class)
+    public void moveToWhitePosition() throws NotPieceFoundException, NotMoveAllowedException {
         Chess game = Chess.createGame();
 
         game.move("white", "B1", "C3");

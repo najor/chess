@@ -1,7 +1,7 @@
 package main.java.pieces;
 
 import com.sun.istack.internal.Nullable;
-import main.java.NotMoveAllowedExecption;
+import main.java.exception.NotMoveAllowedException;
 import main.java.chess.Board;
 import main.java.utils.TriFunction;
 
@@ -24,7 +24,7 @@ public abstract class Piece {
         isRemoved = false;
     }
 
-    public void checkCorrectMove(PieceMovements pieceMovements, TriFunction<Integer, Integer, Integer, String> moveFn) throws NotMoveAllowedExecption {
+    public void checkCorrectMove(PieceMovements pieceMovements, TriFunction<Integer, Integer, Integer, String> moveFn) throws NotMoveAllowedException {
         int startCol = pieceMovements.getColumnTo();
         int endCol = pieceMovements.getColumnFrom();
         int endRow = pieceMovements.getRowTo();
@@ -54,7 +54,7 @@ public abstract class Piece {
         while ((start + step) < end) {
             String move = moveFn.apply(startCol, startRow, step);
             if (board.getPiece(move) != null) {
-                throw new NotMoveAllowedExecption("There is a piece in the middle");
+                throw new NotMoveAllowedException("There is a piece in the middle");
             }
             step++;
         }
@@ -96,9 +96,11 @@ public abstract class Piece {
         this.type = type;
     }
 
-    public void move(String to) throws NotMoveAllowedExecption {
+    public void move(String to) throws NotMoveAllowedException {
+        to = to.toUpperCase();
+
         if (isPieceSameColor(board.getPiece(to))) {
-            throw new NotMoveAllowedExecption("Move to an occupied square. (SAME COLOUR AS YOURS)");
+            throw new NotMoveAllowedException("Move to an occupied square. (SAME COLOUR AS YOURS)");
         }
 
         makeMove(to);
@@ -117,7 +119,7 @@ public abstract class Piece {
         return toPiece != null && this.getColor().equals(toPiece.getColor());
     }
 
-    protected abstract void makeMove(String to) throws NotMoveAllowedExecption;
+    protected abstract void makeMove(String to) throws NotMoveAllowedException;
 
     @Override
     public String toString() {

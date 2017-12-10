@@ -1,7 +1,7 @@
-package test.java;
+package test.java.pieces;
 
-import main.java.NotMoveAllowedExecption;
-import main.java.NotPieceFoundException;
+import main.java.exception.NotMoveAllowedException;
+import main.java.exception.NotPieceFoundException;
 import main.java.chess.Chess;
 import main.java.pieces.Piece;
 import org.junit.Assert;
@@ -13,7 +13,7 @@ import org.junit.Test;
 public class KingTest {
 
     @Test
-    public void moveTest() throws NotPieceFoundException, NotMoveAllowedExecption {
+    public void moveTest() throws NotPieceFoundException, NotMoveAllowedException {
         Chess game = Chess.createGame();
         game.move("white", "E2", "E4");
         game.move("black", "E7", "E5");
@@ -23,8 +23,8 @@ public class KingTest {
         Assert.assertEquals(king.getPosition(), "E2");
     }
 
-    @Test(expected = NotMoveAllowedExecption.class)
-    public void moveFalseTest() throws NotPieceFoundException, NotMoveAllowedExecption {
+    @Test(expected = NotMoveAllowedException.class)
+    public void moveFalseTest() throws NotPieceFoundException, NotMoveAllowedException {
         Chess game = Chess.createGame();
         game.move("white", "E2", "E4");
         game.move("black", "E7", "E5");

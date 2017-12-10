@@ -1,6 +1,6 @@
 package main.java.pieces;
 
-import main.java.NotMoveAllowedExecption;
+import main.java.exception.NotMoveAllowedException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,25 +37,25 @@ public class PieceMovements {
         return rowFrom;
     }
 
-    public PieceMovements invoke() throws NotMoveAllowedExecption {
+    public PieceMovements invoke() throws NotMoveAllowedException {
         Pattern patternPosition = Pattern.compile("(\\w)(\\d)");
         Matcher matcherPosition = patternPosition.matcher(to);
 
         if (!matcherPosition.matches()) {
-            throw new NotMoveAllowedExecption("Destiny is not well constructed");
+            throw new NotMoveAllowedException("Destiny is not well constructed");
         }
 
         columnTo = (int)(matcherPosition.group(1).charAt(0));
         rowTo = Integer.parseInt(matcherPosition.group(2));
 
         if (!matcherPosition.matches()) {
-            throw new NotMoveAllowedExecption();
+            throw new NotMoveAllowedException();
         }
 
         matcherPosition = patternPosition.matcher(from);
 
         if (!matcherPosition.matches()) {
-            throw new NotMoveAllowedExecption();
+            throw new NotMoveAllowedException();
         }
 
         columnFrom = (int)(matcherPosition.group(1).charAt(0));

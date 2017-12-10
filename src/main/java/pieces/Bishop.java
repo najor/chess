@@ -1,6 +1,6 @@
 package main.java.pieces;
 
-import main.java.NotMoveAllowedExecption;
+import main.java.exception.NotMoveAllowedException;
 import main.java.chess.Board;
 
 /**
@@ -13,11 +13,11 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public void makeMove(String to) throws NotMoveAllowedExecption {
+    public void makeMove(String to) throws NotMoveAllowedException {
         PieceMovements pieceMovements = new PieceMovements(getPosition(), to).invoke();
 
         if (!isDiagonalMove(pieceMovements)) {
-            throw new NotMoveAllowedExecption("Only Diagonal moves are allowed");
+            throw new NotMoveAllowedException("Only Diagonal moves are allowed");
         }
 
         checkCorrectMove(pieceMovements, (col, row, step) -> ((char)(col + step)) + "" + (row + step));

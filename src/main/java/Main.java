@@ -1,28 +1,32 @@
 package main.java;
 
-import main.java.chess.Chess;
-
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import main.java.chess.Chess;
+import main.java.exception.ChessException;
+
 public class Main {
 
-    public static void main(String[] args) {
-	    Chess game = Chess.createGame();
+    private static Pattern INPUT_PATTERN = Pattern.compile("(\\w+)\\s(\\w+)");
 
+    public static void main(String[] args) {
+
+        printMovingExample();
+
+	    Chess game = Chess.createGame();
         game.printBoard();
 
         Scanner scanner = new Scanner(System.in);
         String input;
         String turn = "white";
 
-        while (true) {
+        do {
             System.out.print(turn + ": ");
             input = scanner.nextLine();
 
-            Pattern p = Pattern.compile("(\\w+)\\s(\\w+)");
-            Matcher m = p.matcher(input);
+            Matcher m = INPUT_PATTERN.matcher(input);
 
             if (m.matches()) {
                 try {
@@ -38,8 +42,13 @@ public class Main {
                 }
                 game.printBoard();
             }
+        } while (!"exit".equals(input));
+    }
 
-
-        }
+    private static void printMovingExample() {
+        System.out.println("Example of moving:");
+        System.out.println(" > white: C2 C4");
+        System.out.println(" > black: C7 C6");
+        System.out.println(" > exit // exit the program");
     }
 }

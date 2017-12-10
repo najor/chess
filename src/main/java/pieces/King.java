@@ -1,6 +1,6 @@
 package main.java.pieces;
 
-import main.java.NotMoveAllowedExecption;
+import main.java.exception.NotMoveAllowedException;
 import main.java.chess.Board;
 
 /**
@@ -12,7 +12,7 @@ public class King extends Piece {
     }
 
     @Override
-    public void makeMove(String to) throws NotMoveAllowedExecption {
+    public void makeMove(String to) throws NotMoveAllowedException {
         PieceMovements pieceMovements = new PieceMovements(getPosition(), to).invoke();
         int columnTo = pieceMovements.getColumnTo();
         int columnFrom = pieceMovements.getColumnFrom();
@@ -23,7 +23,7 @@ public class King extends Piece {
         int columnDistance = Math.abs(columnTo - columnFrom);
 
         if (rowDistance > 1 || columnDistance > 1) {
-            throw new NotMoveAllowedExecption("The king can only move 1 position");
+            throw new NotMoveAllowedException("The king can only move 1 position");
         }
 
         Piece toPiece = board.getPiece(to);
